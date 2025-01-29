@@ -1,8 +1,9 @@
 import { Text } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStateContext from "./contexts/GlobalStateContext";
 import Login from "./pages/OnBoarding/Login";
+import SignUp from "./pages/OnBoarding/SignUp";
 
 const App = () => {
   const context = useContext(GlobalStateContext);
@@ -15,6 +16,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route
             path="*"
             element={isAuthenticate ? <Text>Hello</Text> : <Login />}

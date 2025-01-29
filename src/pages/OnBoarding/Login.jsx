@@ -15,6 +15,7 @@ import onboardingpng from "../../assets/images/onboarding.png";
 import MainFrame from "../../components/MainFrame";
 import { Checkbox } from "../../components/ui/checkbox";
 import { NavLink } from "react-router-dom";
+import { Spinner } from "@chakra-ui/react"
 
 const COLORS = {
   background: "#1b1b1b",
@@ -36,7 +37,7 @@ const LoginForm = () => (
   <VStack gap={12} color={COLORS.white}>
     <VStack gap={4}>
       <Field.Root>
-        <Field.Label>Username</Field.Label>
+        <Field.Label fontSize="xs" >Username</Field.Label>
         <Input
           w={SIZES.inputWidth}
           borderRadius="8px"
@@ -44,16 +45,16 @@ const LoginForm = () => (
         />
       </Field.Root>
       <Field.Root>
-        <Field.Label>Password</Field.Label>
+        <Field.Label fontSize="xs" >Password</Field.Label>
         <Input w={SIZES.inputWidth} placeholder="Enter Password" />
       </Field.Root>
       <HStack w={SIZES.fullWidth} justifyContent="space-between">
         <Checkbox variant="solid" colorPalette="green">
-          <Text as="span" fontSize="sm">
+          <Text as="span" fontSize="xs">
             Remember me
           </Text>
         </Checkbox>
-        <Text textDecoration="underline" fontSize="sm">
+        <Text textDecoration="underline" fontSize="xs">
           Forgot Password?
         </Text>
       </HStack>
@@ -64,6 +65,7 @@ const LoginForm = () => (
         w={SIZES.inputWidth}
         borderRadius="8px"
         bgColor={COLORS.primary}
+        fontSize="xs"
       >
         Sign in
       </Button>
@@ -75,7 +77,7 @@ const LoginForm = () => (
         <Box flex={1}>
           <Separator bgColor={COLORS.separator} />
         </Box>
-        <Text fontSize="sm" mx={2}>
+        <Text fontSize="xs" mx={2}>
           or
         </Text>
         <Box flex={1}>
@@ -88,10 +90,11 @@ const LoginForm = () => (
         borderRadius="8px"
         border="0.5px solid #FFFFFF"
         bgColor="transparent"
+        fontSize="xs"
       >
         <HStack>
           <Image h={SIZES.iconSize} src={googleIcon} />
-          <Text>Sign in with Google</Text>
+          <Text fontSize="xs" > Sign in with Google</Text>
         </HStack>
       </Button>
     </VStack>
@@ -131,14 +134,14 @@ const Login = () => (
             justifyContent="center"
             alignItems="center"
           >
-            <VStack alignItems="flex-start" gap={12}>
+            <VStack alignItems="flex-start" gap={8}>
               <VStack gap={"-1"} alignItems="flex-start">
-                <Text as="span" color={COLORS.white} fontSize="32px">
+                <Text as="span" color={COLORS.white} fontSize="2xl">
                   Let’s sign you in
                 </Text>
                 <Text fontSize="sm" color={COLORS.white} as="span">
                   Don’t have an account{" "}
-                  <NavLink>
+                  <NavLink to="/sign-up">
                     <span
                       style={{
                         color: COLORS.primary,
