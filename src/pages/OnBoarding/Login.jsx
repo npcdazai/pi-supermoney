@@ -1,21 +1,21 @@
 import {
-    Box,
-    Button,
-    Field,
-    HStack,
-    Image,
-    Input,
-    Separator,
-    Text,
-    VStack,
+  Box,
+  Button,
+  Field,
+  HStack,
+  Image,
+  Input,
+  Separator,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import googleIcon from "../../assets/icons/Google.png";
 import piLogo from "../../assets/icons/pi-logo.png";
 import onboardingpng from "../../assets/images/onboarding.png";
 import MainFrame from "../../components/MainFrame";
 import { Checkbox } from "../../components/ui/checkbox";
+import { NavLink } from "react-router-dom";
 
-// Constants
 const COLORS = {
   background: "#1b1b1b",
   primary: "#8061D9",
@@ -29,7 +29,7 @@ const SIZES = {
   inputWidth: "390px",
   logoWidth: "54.16px",
   logoHeight: "32px",
-  iconSize: "24px",
+  iconSize: "20px",
 };
 
 const LoginForm = () => (
@@ -138,7 +138,17 @@ const Login = () => (
                 </Text>
                 <Text fontSize="sm" color={COLORS.white} as="span">
                   Don’t have an account{" "}
-                  <span style={{ color: COLORS.primary }}>Sign up</span>
+                  <NavLink>
+                    <span
+                      style={{
+                        color: COLORS.primary,
+                        textDecoration: "underline",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Sign up
+                    </span>
+                  </NavLink>
                 </Text>
               </VStack>
               <LoginForm />
