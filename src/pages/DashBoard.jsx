@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { HiCog } from "react-icons/hi";
 import pilogo from "../assets/icons/pi-logo.png";
 import topSectionImg from "../assets/images/topSection.png";
-import { DateRangePicker } from "../components/DateRangePicker";
+import DateRng from "../components/DateRangePicker";
 import MainFrame from "../components/MainFrame";
 import {
   MenuCheckboxItem,
@@ -80,38 +80,7 @@ const DashBoard = () => {
                   Track & Resolve User Queries & much more at one place
                 </Text>
               </VStack>
-              <MenuRoot>
-                <MenuTrigger asChild>
-                  <HStack
-                    cursor="pointer"
-                    color="#fff"
-                    border="none"
-                    variant="none"
-                    size="sm"
-                  >
-                    <span>{selectedTitle || "Last year"}</span>
-                    <IoIosArrowDown />
-                  </HStack>
-                </MenuTrigger>
-                <MenuContent>
-                  <MenuItemGroup title="Features">
-                    {dateItems.map(({ title, value }) => (
-                      <MenuCheckboxItem
-                        key={value}
-                        value={value}
-                        isChecked={selectedItem === value}
-                        onClick={() => handleItemClick(value)}
-                      >
-                        {title}
-                      </MenuCheckboxItem>
-                    ))}
-                  </MenuItemGroup>
-                </MenuContent>
-              </MenuRoot>
-              <DateRangePicker
-                dateRange={dateRange}
-                onDateChange={setDateRange}
-              />
+              <DateRng />
             </HStack>
           </VStack>
         </HStack>

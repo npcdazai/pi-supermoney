@@ -1,52 +1,38 @@
+import React, { useState } from "react";
+import { Button, HStack, Icon, Text } from "@chakra-ui/react";
+import { IoIosArrowDown } from "react-icons/io";
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from "./ui/menu";
+// import { CheckIcon } from "@chakra-ui/icons";
 
-import { useState } from "react";
-import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
+const dateOptions = [
+  "Last 7 days",
+  "Last Month",
+  "Last 3 Months",
+  "Last Year",
+  "Last 2 Years",
+  "Custom Dates",
+];
 
-export const DateRangePicker = ({ dateRange, onDateChange }) => {
-  const [showCalendar, setShowCalendar] = useState(false);
-
-  const handleDateChange = (item) => {
-    onDateChange([item.selection]);
-    setTimeout(() => setShowCalendar(false), 500);
-  };
+const DateRangeMenu = () => {
+  const [selectedOption, setSelectedOption] = useState("Last 7 days");
 
   return (
-    showCalendar && (
-      <div
-        style={{
-          position: "absolute",
-          background: "#fff",
-          padding: "10px",
-          borderRadius: "8px",
-          zIndex: 10,
-          bottom: "100px",
-          right: "12px",
-        }}
-      >
-        <DateRange
-          ranges={dateRange}
-          onChange={handleDateChange}
-          moveRangeOnFirstSelection={false}
-        />
-        <style>{`
-          .rdrCalendarWrapper {
-            font-family: Arial, sans-serif;
-          }
-          .rdrSelected {
-            background-color: #e8def8 !important;
-          }
-          .rdrStartEdge,
-          .rdrEndEdge {
-            background-color: #65558F !important;
-            border-radius: 50%;
-          }
-          .rdrInRange {
-            background-color: #c2a8ff !important;
-          }
-        `}</style>
-      </div>
-    )
+    <MenuRoot>
+      <MenuTrigger>
+        <HStack border="none" color="#fff" rightIcon={<IoIosArrowDown />}>
+          {selectedOption}
+        </HStack>
+      </MenuTrigger>
+      <MenuContent>
+        {dateOptions.map((option) => (
+          <MenuItem key={option} onClick={() => setSelectedOption(option)}>
+            {option}
+            {selectedOption === option && <Text>Hello</Text>}
+          </MenuItem>
+        ))}
+      </MenuContent>
+    </MenuRoot>
   );
-}
+};
+
+export default DateRangeMenu;
