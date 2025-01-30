@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStateContext from "./contexts/GlobalStateContext";
 import Login from "./pages/OnBoarding/Login";
 import SignUp from "./pages/OnBoarding/SignUp";
+import DashBoard from "./pages/DashBoard";
 
 const App = () => {
   const context = useContext(GlobalStateContext);
@@ -18,9 +19,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route
-            path="*"
-            element={isAuthenticate ? <Text>Hello</Text> : <Login />}
+            path="/"
+            element={isAuthenticate === true ? <DashBoard /> : <Login />}
           />
+          <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

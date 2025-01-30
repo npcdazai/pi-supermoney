@@ -21,7 +21,7 @@ const MainFrame = ({ children }) => {
       <Box
         w="100%"
         h="auto"
-        bg="#ffffff"
+        // bg="#ffffff"
         color={"#000000"}
         rounded="md"
         boxShadow={"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}
