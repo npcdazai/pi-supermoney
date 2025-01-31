@@ -23,6 +23,7 @@ const DashBoard = () => {
           backgroundPosition="center"
           w="100vw"
           p={4}
+          h="170px"
         >
           <VStack gap={4} w="100%" p={0}>
             <HStack w="100%" justifyContent="space-between">

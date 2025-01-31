@@ -20,74 +20,152 @@ const ICONS = {
 };
 
 const COLORS = {
-  primary: "#FFBA39B2",
   border: "#00000033",
-  text: "#000000",
+  text: {
+    primary: "#000000", // Default text color
+    secondary: "#FFFFFF", // Light text color for dark backgrounds
+    tertiary: "#FF0000", // Red text color for emphasis
+  },
+  motionBox: {
+    primary: "#ffdd9e", // Default MotionBox background
+    secondary: "#cabdef", // Purple MotionBox background
+    tertiary: "#8d8986", // Dark MotionBox background
+  },
 };
 
-const data = {
-  userSource: {
-    mobileApp: 10400,
-    wholeApp: 4000,
-    block: 2450,
-    aProve: 1040,
-    total: 1320042,
+const data = [
+  {
+    title: "User Source",
+    values: {
+      mobileApp: 10400,
+      wholeApp: 4000,
+      block: 2450,
+      aProve: 1040,
+      total: 1320042,
+    },
     img: userPng,
+    color: "#fece77",
+    textColor: COLORS.text.primary, // Use primary text color
+    motionBoxColor: COLORS.motionBox.primary, // Use primary MotionBox background
   },
-  userContent: {
-    mobileApp: 10400,
-    wholeApp: 4000,
-    block: 2450,
-    aProve: 1040,
-    total: 1320042,
+  {
+    title: "User Queries",
+    values: {
+      mobileApp: 10400,
+      wholeApp: 4000,
+      block: 2450,
+      aProve: 1040,
+      total: 1320042,
+    },
+    img: userPng,
+    color: "#9580d3",
+    textColor: COLORS.text.secondary, // Use secondary text color
+    motionBoxColor: COLORS.motionBox.secondary, // Use secondary MotionBox background
   },
-  usersTrackingAssets: {
-    stocks: 4000,
-    mutualFunds: 2450,
-    bankBalance: 1040,
-    aProve: 824,
-    total: 1320042,
+  {
+    title: "Users Tracking Assets",
+    values: {
+      mobileApp: 132042,
+      wholeApp: 4000,
+      block: 2450,
+      aProve: 1040,
+      total: 1320042,
+    },
+    img: userPng,
+    color: "#252019B2",
+    textColor: COLORS.text.secondary, // Use secondary text color
+    motionBoxColor: COLORS.motionBox.tertiary, // Use tertiary MotionBox background
   },
-  totalAssets: {
-    stocks: 4000,
-    mutualFunds: 2450,
-    bankBalance: 1040,
-    aProve: 824,
+  {
+    title: "Users Tracking Assets",
+    values: {
+      mobileApp: 132042,
+      wholeApp: 4000,
+      block: 2450,
+      aProve: 1040,
+      total: 1320042,
+    },
+    img: userPng,
+    color: "#22252FB2",
+    textColor: COLORS.text.secondary, // Use secondary text color
+    motionBoxColor: COLORS.motionBox.tertiary, // Use tertiary MotionBox background
   },
-};
-
-const barData = [
-  { label: "", value: 36, icon: FaMobileAlt },
-  { label: "", value: 19, icon: FaWhatsapp },
-  { label: "", value: 21, icon: FaSlack },
-  { label: "A", value: 19, icon: FaSlack },
-  { label: "C", value: 8, icon: FaSlack },
-  { label: "T", value: 19, icon: FaSlack },
-  { label: "H", value: 32, icon: FaSlack },
 ];
 
-const StatItem = ({ icon, label, value }) => (
+const barData = [
+  {
+    label: "",
+    value: 36,
+    icon: FaMobileAlt,
+    primaryColor: "#fff",
+    secondaryColor: "#000",
+  },
+  {
+    label: "",
+    value: 19,
+    icon: FaWhatsapp,
+    primaryColor: "#fff",
+    secondaryColor: "#000",
+  },
+  {
+    label: "",
+    value: 21,
+    icon: FaSlack,
+    primaryColor: "#fff",
+    secondaryColor: "#000",
+  },
+  {
+    label: "A",
+    value: 19,
+    icon: FaSlack,
+    primaryColor: "#fff",
+    secondaryColor: "#000",
+  },
+  {
+    label: "C",
+    value: 8,
+    icon: FaSlack,
+    primaryColor: "#fff",
+    secondaryColor: "#000",
+  },
+  {
+    label: "T",
+    value: 19,
+    icon: FaSlack,
+    primaryColor: "#fff",
+    secondaryColor: "#000",
+  },
+  {
+    label: "H",
+    value: 32,
+    icon: FaSlack,
+    primaryColor: "#fff",
+    secondaryColor: "#000",
+  },
+];
+
+const StatItem = ({ icon, label, value, textColor }) => (
   <HStack w="100%" justifyContent="space-between">
     <HStack gap={1}>
-      <Icon as={icon} color={COLORS.text} />
-      <Text color={COLORS.text} fontWeight={500}>
+      <Icon as={icon} color={textColor} />
+      <Text fontSize="xs" color={textColor} fontWeight={500}>
         {label}
       </Text>
     </HStack>
-    <Text fontWeight={500} fontSize={"sm"}>
+    <Text fontWeight={500} fontSize={"xs"} color={textColor}>
       {value}
     </Text>
   </HStack>
 );
 
-const BarChart = ({ data }) => {
+const BarChart = ({ data, bgColor }) => {
   const MotionBox = motion(Box);
 
   return (
     <HStack gap={"1.2rem"} alignItems="flex-end">
       {barData.map((item, index) => (
         <VStack key={index} align="center">
-          <Text fontSize="xs" fontWeight="bold">
+          <Text fontSize="xs" color={item.primaryColor} fontWeight="bold">
             {item.value}%
           </Text>
           <Box position="relative">
@@ -96,14 +174,14 @@ const BarChart = ({ data }) => {
               w="16px"
               h="16px"
               border="2px solid #FFFFFF"
-              bgColor="#FFCF76"
+              bg={bgColor}
               right="-3px"
               top="-2"
             />
             <MotionBox
               width="10px"
               height={0}
-              bg="#ffdd9e82"
+              bg={bgColor}
               borderRadius="xs"
               initial={{ height: 0 }}
               animate={{ height: `${item.value * 3}px` }}
@@ -119,41 +197,70 @@ const BarChart = ({ data }) => {
   );
 };
 
-const UserSourceCard = ({ data }) => (
+const UserSourceCard = ({ data, color, textColor, motionBoxColor }) => (
   <VStack
     p={3}
-    gap={3}
+    gap={2}
     borderRadius="16px"
     alignItems="flex-start"
-    bgColor={COLORS.primary}
-    w="320px"
+    bgColor={color}
+    w="100%"
+    h="100%"
   >
     <HStack justifyContent="space-between" w="100%">
       <VStack gap={"-5"} alignItems="flex-start">
-        <Text as="span" fontWeight={700} color={COLORS.text} fontSize="32px">
-          {data.mobileApp}
+        <Text as="span" fontWeight={700} color={textColor} fontSize="x-large">
+          {data.values.mobileApp}
         </Text>
-        <Text as="span" fontWeight={500} fontSize="20px" color={COLORS.text}>
-          User Source
+        <Text as="span" fontWeight={500} fontSize="md" color={textColor}>
+          {data.title}
         </Text>
       </VStack>
       <Image src={data.img} w="81.67px" h="77.18px" />
     </HStack>
     <Box border={`1px solid ${COLORS.border}`} />
     <VStack w="100%" gap={1} alignItems="flex-start">
-      <StatItem icon={ICONS.mobile} label="Mobile App" value={data.mobileApp} />
-      <StatItem icon={ICONS.whatsApp} label="Whatsapp" value={data.wholeApp} />
-      <StatItem icon={ICONS.slack} label="Slack" value={data.block} />
-      <StatItem icon={ICONS.slack} label="Slack" value={data.block} />
+      <StatItem
+        icon={ICONS.mobile}
+        label="Mobile App"
+        value={data.values.mobileApp}
+        textColor={textColor}
+      />
+      <StatItem
+        icon={ICONS.whatsApp}
+        label="Whatsapp"
+        value={data.values.wholeApp}
+        textColor={textColor}
+      />
+      <StatItem
+        icon={ICONS.slack}
+        label="Slack"
+        value={data.values.block}
+        textColor={textColor}
+      />
+      <StatItem
+        icon={ICONS.slack}
+        label="Slack"
+        value={data.values.block}
+        textColor={textColor}
+      />
     </VStack>
-    <BarChart data={barData} />
+    <BarChart data={barData} bgColor={motionBoxColor} />
   </VStack>
 );
 
 const AssetData = () => (
-  <Box h="440px" w="320px" p={5}>
-    <HStack w="100%" align="stretch" spacing={4}>
-      <UserSourceCard data={data.userSource} />
+  <Box bgColor="transparent" position="relative" w="100%" p={5}>
+    <HStack p={4} position="absolute" w="100%" top="-40px" right="0px" align="stretch" spacing={4}>
+      {data.map((cardData, index) => (
+        <UserSourceCard
+          key={index}
+          data={cardData}
+          color={cardData.color}
+          textColor={cardData.textColor}
+          motionBoxColor={cardData.motionBoxColor}
+        />
+      ))}
     </HStack>
   </Box>
 );
