@@ -76,9 +76,9 @@ const DateRangeMenu = () => {
 
       {showCalendar && (
         <Box position="relative" mt={2} p={3} borderRadius="md">
-          <VStack position="absolute" right="0">
+          <VStack zIndex={100} position="absolute" right="0">
             <Text color="white">Select Date Range:</Text>
-            <DateRangePicker ranges={dateRange}  rangeColors={["#black"]} onChange={handleDateChange} />
+            <DateRangePicker  ranges={dateRange}  rangeColors={["#black"]} onChange={handleDateChange} />
           </VStack>
         </Box>
       )}

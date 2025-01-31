@@ -16,7 +16,7 @@ const DashBoard = () => {
 
   return (
     <MainFrame>
-      <Box p={0}>
+      <Box bgColor="#fff" h="100vh" p={0}>
         <HStack
           backgroundImage={`url(${topSectionImg})`}
           backgroundSize="cover"
