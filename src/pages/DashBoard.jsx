@@ -1,60 +1,18 @@
 import {
-  Box,
-  HStack,
-  Image,
-  Text,
-  useCheckboxGroup,
-  VStack,
+    Box,
+    HStack,
+    Image,
+    Text,
+    VStack
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { HiCog } from "react-icons/hi";
 import pilogo from "../assets/icons/pi-logo.png";
 import topSectionImg from "../assets/images/topSection.png";
 import DateRng from "../components/DateRangePicker";
 import MainFrame from "../components/MainFrame";
-import {
-  MenuCheckboxItem,
-  MenuContent,
-  MenuItemGroup,
-  MenuRoot,
-  MenuTrigger,
-} from "../components/ui/menu";
 import { UserInfo } from "../components/UserInfo";
-import { dateItems } from "../constants";
-import { IoIosArrowDown } from "react-icons/io";
+import AssetData from "../components/AssetData";
 
 const DashBoard = () => {
-  const group = useCheckboxGroup({ defaultValue: ["bar"] });
-  const [selectedItem, setSelectedItem] = useState("Last year");
-  const [dateRange, setDateRange] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
-
-  //   const handleItemClick = (value) => {
-  //     if (value === "customDates") {
-  //       setShowCalendar(true);
-  //     } else {
-  //       setShowCalendar(false);
-  //     }
-  //     setSelectedItems((prev) =>
-  //       prev.includes(value)
-  //         ? prev.filter((item) => item !== value)
-  //         : [...prev, value]
-  //     );
-  //   };
-
-  const handleItemClick = (value) => {
-    setSelectedItem(value);
-  };
-
-  const selectedTitle = dateItems
-    .filter((item) => item.value === selectedItem)
-    .map((item) => item.title)
-    .join(", ");
 
   return (
     <MainFrame>
@@ -84,6 +42,8 @@ const DashBoard = () => {
             </HStack>
           </VStack>
         </HStack>
+
+        <AssetData/>
       </Box>
     </MainFrame>
   );

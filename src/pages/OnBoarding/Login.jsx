@@ -9,20 +9,19 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
+import * as Yup from "yup";
 import googleIcon from "../../assets/icons/Google.png";
 import piLogo from "../../assets/icons/pi-logo.png";
 import onboardingpng from "../../assets/images/onboarding.png";
 import MainFrame from "../../components/MainFrame";
 import { Checkbox } from "../../components/ui/checkbox";
-import { NavLink } from "react-router-dom";
-import { Spinner } from "@chakra-ui/react";
-import * as Yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useContext, useState } from "react";
-import GlobalStateContext from "../../contexts/GlobalStateContext";
-import { Toaster, toaster } from "../../components/ui/toaster";
 import { Field } from "../../components/ui/field";
+import { toaster } from "../../components/ui/toaster";
+import GlobalStateContext from "../../contexts/GlobalStateContext";
 
 const COLORS = {
   background: "#1b1b1b",

@@ -1,0 +1,15 @@
+/* Define the transition and rotation effect for the arrow */
+.arrow-icon {
+  transition: transform 0.3s ease; /* Smooth transition for transform */
+}
+
+.arrow-icon.open {
+  transform: rotate(180deg); /* Rotate the arrow when the menu is open */
+}
+.rdrDefinedRangesWrapper {
+  font-size: 12px;
+  width: 226px;
+  border-right: solid 1px #eff2f7;
+  background: #fff;
+  display: none;
+}

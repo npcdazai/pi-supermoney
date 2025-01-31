@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Button, HStack, Icon, Text } from "@chakra-ui/react";
+import { HStack, Box, Text, VStack } from "@chakra-ui/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from "./ui/menu";
-// import { CheckIcon } from "@chakra-ui/icons";
+import { FaCheck } from "react-icons/fa";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { Toaster, toaster } from "../components/ui/toaster"
 
 const dateOptions = [
   "Last 7 days",
@@ -15,23 +19,70 @@ const dateOptions = [
 
 const DateRangeMenu = () => {
   const [selectedOption, setSelectedOption] = useState("Last 7 days");
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+    if (option === "Custom Dates") {
+      setShowCalendar(true);
+    } else {
+      setShowCalendar(false);
+    }
+  };
+
+
+  const handleDateChange = (ranges) => {
+    const { startDate, endDate } = ranges.selection;
+
+    
+    
+    if (startDate.toDateString() === endDate.toDateString()) {
+        toaster.create({
+            title: `Toast status is Y`,
+          })
+    } else {
+      setDateRange([ranges.selection]);
+      setShowCalendar(false);
+    }
+  };
 
   return (
-    <MenuRoot>
-      <MenuTrigger>
-        <HStack border="none" color="#fff" rightIcon={<IoIosArrowDown />}>
-          {selectedOption}
-        </HStack>
-      </MenuTrigger>
-      <MenuContent>
-        {dateOptions.map((option) => (
-          <MenuItem key={option} onClick={() => setSelectedOption(option)}>
-            {option}
-            {selectedOption === option && <Text>Hello</Text>}
-          </MenuItem>
-        ))}
-      </MenuContent>
-    </MenuRoot>
+    <Box>
+      <MenuRoot>
+        <MenuTrigger border="none">
+          <HStack border="none" color="#fff">
+            {selectedOption === "Custom Dates"
+              ? `${dateRange[0].startDate.toLocaleDateString()} - ${dateRange[0].endDate.toLocaleDateString()}`
+              : selectedOption}
+            <IoIosArrowDown color="#fff" />
+          </HStack>
+        </MenuTrigger>
+        <MenuContent>
+          {dateOptions.map((option) => (
+            <MenuItem key={option} onClick={() => handleOptionSelect(option)}>
+              {option}
+              {selectedOption === option && <FaCheck color="#fff" />}
+            </MenuItem>
+          ))}
+        </MenuContent>
+      </MenuRoot>
+
+      {showCalendar && (
+        <Box position="relative" mt={2} p={3} borderRadius="md">
+          <VStack position="absolute" right="0">
+            <Text color="white">Select Date Range:</Text>
+            <DateRangePicker ranges={dateRange}  rangeColors={["#black"]} onChange={handleDateChange} />
+          </VStack>
+        </Box>
+      )}
+    </Box>
   );
 };
 
