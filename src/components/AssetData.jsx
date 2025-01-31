@@ -44,7 +44,7 @@ const data = [
       total: 1320042,
     },
     img: userPng,
-    color: "#fece77",
+    color: "#FFBA39B2",
     textColor: COLORS.text.primary, // Use primary text color
     motionBoxColor: COLORS.motionBox.primary, // Use primary MotionBox background
   },
@@ -58,7 +58,7 @@ const data = [
       total: 1320042,
     },
     img: userPng,
-    color: "#9580d3",
+    color: "#8061D9B2",
     textColor: COLORS.text.secondary, // Use secondary text color
     motionBoxColor: COLORS.motionBox.secondary, // Use secondary MotionBox background
   },
@@ -250,8 +250,8 @@ const UserSourceCard = ({ data, color, textColor, motionBoxColor }) => (
 );
 
 const AssetData = () => (
-  <Box bgColor="transparent" position="relative" w="100%" p={5}>
-    <HStack p={4} position="absolute" w="100%" top="-40px" right="0px" align="stretch" spacing={4}>
+  <Box bgColor="transparent" w="100%" p={5}>
+    <HStack p={4} >
       {data.map((cardData, index) => (
         <UserSourceCard
           key={index}

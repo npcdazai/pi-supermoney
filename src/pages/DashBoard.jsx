@@ -1,27 +1,23 @@
-import {
-    Box,
-    HStack,
-    Image,
-    Text,
-    VStack
-} from "@chakra-ui/react";
+import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import pilogo from "../assets/icons/pi-logo.png";
 import topSectionImg from "../assets/images/topSection.png";
 import DateRng from "../components/DateRangePicker";
 import MainFrame from "../components/MainFrame";
 import { UserInfo } from "../components/UserInfo";
 import AssetData from "../components/AssetData";
+import UiDataTable from "../components/UiDataTable";
+
 
 const DashBoard = () => {
-
   return (
     <MainFrame>
-      <Box bgColor="#fff" h="100vh" p={0}>
+      <Box position="relative" bgColor="#fff" h="100%" >
+        {/* Header Section */}
         <HStack
           backgroundImage={`url(${topSectionImg})`}
           backgroundSize="cover"
           backgroundPosition="center"
-          w="100vw"
+          w="100%"
           p={4}
           h="170px"
         >
@@ -44,7 +40,15 @@ const DashBoard = () => {
           </VStack>
         </HStack>
 
-        <AssetData/>
+        {/* AssetData - Cards Section */}
+        <Box position="relative" w="100%" top="-60px">
+          <AssetData />
+        </Box>
+
+        {/* User Queries Table */}
+        <Box h="100%" bgColor="#fff" px={8}>
+          <UiDataTable />
+        </Box>
       </Box>
     </MainFrame>
   );

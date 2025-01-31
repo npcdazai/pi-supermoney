@@ -9,19 +9,15 @@ const MotionVStack = motion(VStack);
 const MainFrame = ({ children }) => {
   return (
     <MotionVStack
-      // overflowY="scroll"
       {...OPACITY_ON_LOAD}
       w="100%"
-      h="94.5%"
-      // p={3}
-      // pt={3}
-      // pe={0}
-      // pb={3}
+      h="100vh"
+    
     >
       <Box
         w="100%"
         h="auto"
-        // bg="#ffffff"
+        bg="#fff"
         color={"#000000"}
         rounded="md"
         boxShadow={"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}
