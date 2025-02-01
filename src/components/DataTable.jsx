@@ -14,6 +14,7 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
   const [sortedData, setSortedData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [selectedRows, setSelectedRows] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
@@ -58,6 +59,21 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
     setSortConfig({ key: column, direction });
   };
 
+  const toggleSelectAll = () => {
+    if (selectAll) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(currentData.map((item) => item.id));
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const toggleSelectRow = (id) => {
+    setSelectedRows((prev) =>
+      prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]
+    );
+  };
+
   const indexOfLastItem = currentPage * pageSize;
   const indexOfFirstItem = indexOfLastItem - pageSize;
   const currentData = sortedData.slice(indexOfFirstItem, indexOfLastItem);
@@ -68,7 +84,10 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
       <Table.ScrollArea>
         <Table.Root size="sm" variant="line" stickyHeader>
           <Table.Header>
-            <Table.Row bg={"#fff"} borderBottom="1px solid #EAECF0">
+            <Table.Row bg={"#fff"}>
+              <Table.ColumnHeader borderBottom="1px solid #EAECF0" px={4}>
+                <Checkbox isChecked={selectAll} onChange={toggleSelectAll} />
+              </Table.ColumnHeader>
               {tableHeadRow.map((item, index) => (
                 <Table.ColumnHeader
                   key={index}
@@ -77,6 +96,7 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
                   fontWeight={600}
                   px={4}
                   textAlign="center"
+                  borderBottom="1px solid #EAECF0"
                   onClick={() => handleSort(item)}
                   cursor={sortableColumns.includes(item) ? "pointer" : "default"}
                   _hover={sortableColumns.includes(item) ? { textDecoration: "underline" } : {}}
@@ -96,8 +116,12 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
           <Table.Body>
             {currentData.map((item, index) => (
               <Table.Row key={item.id} bg={index % 2 === 0 ? "#fff" : "#fff"}>
+                <Table.Cell border="none" px={4}>
+                  <Checkbox isChecked={selectedRows.includes(item.id)} onChange={() => toggleSelectRow(item.id)} />
+                </Table.Cell>
                 {tableHeadRow.map((heading, colIndex) => (
                   <Table.Cell
+                    color="#667085"
                     key={`${index}-${colIndex}`}
                     px={4}
                     fontSize={"sm"}
