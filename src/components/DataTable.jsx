@@ -11,16 +11,17 @@ import { FaArrowUp } from "react-icons/fa6";
 import { FaArrowDown } from "react-icons/fa";
 
 const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
-  const [sortedData, setSortedData] = useState(data);
+  const [sortedData, setSortedData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [selectedRows, setSelectedRows] = useState([]);
-  const allSelected =
-    selectedRows.length === sortedData.length && sortedData.length > 0;
-  const isIndeterminate =
-    selectedRows.length > 0 && selectedRows.length < sortedData.length;
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
   useEffect(() => {
     setSortedData(data);
+    if (data.length > 0) {
+      handleSort("date"); // Default sorting by date/time
+    }
   }, [data]);
 
   const handleSort = (column) => {
@@ -32,30 +33,35 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
     }
 
     const sortedArray = [...sortedData].sort((a, b) => {
-      if (a[column] < b[column]) return direction === "asc" ? -1 : 1;
-      if (a[column] > b[column]) return direction === "asc" ? 1 : -1;
-      return 0;
+      const aValue = a[column];
+      const bValue = b[column];
+
+      const isNumber = !isNaN(parseFloat(aValue)) && isFinite(aValue);
+      const isDate = !isNaN(Date.parse(aValue));
+
+      if (isNumber) {
+        return direction === "asc" ? aValue - bValue : bValue - aValue;
+      }
+
+      if (isDate) {
+        return direction === "asc"
+          ? new Date(aValue) - new Date(bValue)
+          : new Date(bValue) - new Date(aValue);
+      }
+
+      return direction === "asc"
+        ? aValue.toString().localeCompare(bValue.toString())
+        : bValue.toString().localeCompare(aValue.toString());
     });
 
     setSortedData(sortedArray);
     setSortConfig({ key: column, direction });
   };
 
-  const handleSelectAll = () => {
-    if (allSelected) {
-      setSelectedRows([]);
-    } else {
-      setSelectedRows(sortedData.map((item) => item.id));
-    }
-  };
-
-  const handleRowSelect = (id) => {
-    setSelectedRows((prevSelected) =>
-      prevSelected.includes(id)
-        ? prevSelected.filter((rowId) => rowId !== id)
-        : [...prevSelected, id]
-    );
-  };
+  const indexOfLastItem = currentPage * pageSize;
+  const indexOfFirstItem = indexOfLastItem - pageSize;
+  const currentData = sortedData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(sortedData.length / pageSize);
 
   return (
     <Stack mt={0} color={"#000000CC"}>
@@ -63,69 +69,40 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
         <Table.Root size="sm" variant="line" stickyHeader>
           <Table.Header>
             <Table.Row bg={"#fff"} borderBottom="1px solid #EAECF0">
-              <Table.ColumnHeader border="none" px={4}>
-                <Checkbox
-                  isChecked={allSelected}
-                  isIndeterminate={isIndeterminate}
-                  onChange={handleSelectAll}
-                />
-              </Table.ColumnHeader>
               {tableHeadRow.map((item, index) => (
                 <Table.ColumnHeader
+                  key={index}
                   color="#667085"
                   fontSize={"xs"}
                   fontWeight={600}
                   px={4}
                   textAlign="center"
-                  // textAlign={
-                  //   index === tableHeadRow.length - 1 ? "center" : "left"
-                  // }
-                  key={index}
-                  border={"none"}
                   onClick={() => handleSort(item)}
-                  cursor={
-                    sortableColumns.includes(item) ? "pointer" : "default"
-                  }
-                  _hover={
-                    sortableColumns.includes(item)
-                      ? { textDecoration: "underline" }
-                      : {}
-                  }
+                  cursor={sortableColumns.includes(item) ? "pointer" : "default"}
+                  _hover={sortableColumns.includes(item) ? { textDecoration: "underline" } : {}}
                 >
                   <HStack>
                     {item}
-                    {sortableColumns.includes(item) &&
-                      sortConfig?.key === item && (
-                        <span style={{ marginLeft: "4px" }}>
-                          {sortConfig.direction === "asc" ? <FaArrowUp /> : <FaArrowDown />}
-                        </span>
-                      )}
+                    {sortableColumns.includes(item) && sortConfig?.key === item && (
+                      <span style={{ marginLeft: "4px" }}>
+                        {sortConfig.direction === "asc" ? <FaArrowUp /> : <FaArrowDown />}
+                      </span>
+                    )}
                   </HStack>
                 </Table.ColumnHeader>
               ))}
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {sortedData.map((item, index) => (
-              <Table.Row
-                key={item.id}
-                bg={index % 2 === 0 ? "#fff" : "#fff"}
-
-              >
-                <Table.Cell  border="none" px={4}>
-                  <Checkbox
-                    isChecked={selectedRows.includes(item.id)}
-                    onChange={() => handleRowSelect(item.id)}
-                  />
-                </Table.Cell>
+            {currentData.map((item, index) => (
+              <Table.Row key={item.id} bg={index % 2 === 0 ? "#fff" : "#fff"}>
                 {tableHeadRow.map((heading, colIndex) => (
                   <Table.Cell
-                    px={4}
                     key={`${index}-${colIndex}`}
+                    px={4}
                     fontSize={"sm"}
                     fontWeight={500}
                     border={"none"}
-                    
                   >
                     {item[heading]}
                   </Table.Cell>
@@ -137,15 +114,16 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
       </Table.ScrollArea>
       <PaginationRoot
         size={"xs"}
-        count={20}
-        pageSize={2}
+        count={totalPages}
+        pageSize={1}
         defaultPage={1}
         mb={4}
+        onChange={(page) => setCurrentPage(page)}
       >
         <HStack justifyContent="flex-end">
-          <PaginationPrevTrigger />
-          <PaginationItems />
-          <PaginationNextTrigger />
+          <PaginationPrevTrigger disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} />
+          <PaginationItems count={totalPages} />
+          <PaginationNextTrigger disabled={currentPage === totalPages} onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} />
         </HStack>
       </PaginationRoot>
     </Stack>

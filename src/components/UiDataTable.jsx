@@ -24,15 +24,30 @@ const UiDataTable = () => {
     "Invested Amount",
   ];
 
-  const usersData = Array.from({ length: 13 }, (_, i) => ({
+  const usersData = Array.from({ length: 100 }, (_, i) => ({
     "Session ID": i + 6767283728,
     "User ID": `88738${i + 1}`,
     "Full Name": "Abhijit Kumar",
     "Phone Number": "+91-7250064535",
     "No of Queries": i + 1,
-    "Query Type": i === 0 ? "Urgent" : "Normal",
-    "Session Channel": "App",
-    "Invested Amount": "₹1,40,000",
+    "Query Type":
+      i === 0 ? (
+        <HStack w="70px" bgColor="#FFFAEB" borderRadius="md">
+          <Circle bgColor="#B54708" h="5px" w="5px" />
+          <Text color="#B54708" fontSize="xs" fontWeight={500}>
+            Urgent
+          </Text>
+        </HStack>
+      ) : (
+        <HStack w="70px" bgColor="#ECFDF3" borderRadius="md">
+          <Circle bgColor="#027A48" h="5px" w="5px" />
+          <Text color="#027A48" fontSize="xs" fontWeight={500}>
+            Normal
+          </Text>
+        </HStack>
+      ),
+    "Session Channel": <Text color="#000" fontSize="xs" fontWeight={500}>App</Text>,
+    "Invested Amount": <Text color="#000" fontSize="xs" fontWeight={500}>₹1,40,000</Text>,
   }));
 
   // Function to export data as an Excel file
@@ -77,7 +92,14 @@ const UiDataTable = () => {
       </HStack>
 
       <DataTable
-        sortableColumns={["Full Name", "Registration Date"]}
+        sortableColumns={["Session ID",
+          "User ID",
+          "Full Name",
+          "Phone Number",
+          "No of Queries",
+          "Query Type",
+          "Session Channel",
+          "Invested Amount",]}
         tableHeadRow={tableHeadRow}
         data={usersData}
       />
