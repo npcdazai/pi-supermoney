@@ -146,7 +146,7 @@ const barData = [
 
 const StatItem = ({ icon, label, value, textColor }) => (
   <HStack w="100%" justifyContent="space-between">
-    <HStack gap={1}>
+    <HStack gap={2}>
       <Icon as={icon} color={textColor} />
       <Text fontSize="xs" color={textColor} fontWeight={500}>
         {label}
@@ -251,7 +251,7 @@ const UserSourceCard = ({ data, color, textColor, motionBoxColor }) => (
 
 const AssetData = () => (
   <Box bgColor="transparent" w="100%" p={5}>
-    <HStack p={4} >
+    <HStack p={4} gap={6} >
       {data.map((cardData, index) => (
         <UserSourceCard
           key={index}

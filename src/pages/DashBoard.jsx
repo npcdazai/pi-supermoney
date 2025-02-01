@@ -10,7 +10,7 @@ import UiDataTable from "../components/UiDataTable";
 const DashBoard = () => {
   return (
     <MainFrame>
-      <Box bgColor="#fff">
+      <Box display="flex" flexDirection="column" p={0} bgColor="#fff">
         {/* Header Section */}
         <HStack
           backgroundImage={`url(${topSectionImg})`}
@@ -18,8 +18,9 @@ const DashBoard = () => {
           backgroundPosition="center"
           w="100%"
           p={4}
-          h="170px"
+          h="190px"
           position="relative"
+          alignItems="flex-start"
         >
           <VStack gap={4} w="100%">
             <HStack w="100%" justifyContent="space-between">
@@ -40,11 +41,11 @@ const DashBoard = () => {
           </VStack>
         </HStack>
 
-        <Box position="relative" top="-60px" zIndex={1}>
+        <Box position="relative" top="-70px" zIndex={1}>
           <AssetData />
         </Box>
 
-        <Box h="100%" bgColor="#fff" px={8} pt={4}>
+        <Box h="100%" bgColor="#fff" px={8} pt={0}>
           <UiDataTable />
         </Box>
       </Box>

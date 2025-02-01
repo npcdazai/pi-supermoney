@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Circle,
   HStack,
   Icon,
   Image,
@@ -22,19 +23,24 @@ const UiDataTable = () => {
     "User ID",
     "Full Name",
     "Phone Number",
-    "Gender",
-    "City",
+    "No of Queries",
+    "Query Type",
     "Registration Date",
     "Action",
   ];
 
   const usersData = Array.from({ length: 13 }, (_, i) => ({
     "Session ID": i + 6767283728,
-    "User ID": `User_${i + 1}`,
+    "User ID": `88738${i + 1}`,
     "Full Name": "Abhijit Kumar",
     "Phone Number": "+91-7250064535",
-    Gender: "Male",
-    City: "Mumbai",
+    "No of Queries": i + 1,
+    "Query Type": (
+      <HStack bgColor="#FFFAEB" borderRadius="md" >
+        <Circle bgColor="#B54708" h="8px" w="8px" />
+        <Text color="#B54708" fontSize="xs" fontWeight={500}  >Urgent</Text>
+      </HStack>
+    ),
     "Registration Date": "23/03/2023",
     Action: (
       <HStack justifyContent="center">
@@ -90,7 +96,7 @@ const UiDataTable = () => {
             <IoFilterOutline />
             <Text fontSize="xs" color="#344054" fontWeight={600} >Filter</Text>
           </Button> */}
-          <FilterDrawers/>
+          <FilterDrawers />
 
         </HStack>
       </HStack>
