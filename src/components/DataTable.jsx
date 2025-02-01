@@ -7,6 +7,8 @@ import {
   PaginationRoot,
 } from "../components/ui/pagination";
 import { Checkbox } from "./ui/checkbox";
+import { FaArrowUp } from "react-icons/fa6";
+import { FaArrowDown } from "react-icons/fa";
 
 const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
   const [sortedData, setSortedData] = useState(data);
@@ -74,9 +76,10 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
                   fontSize={"xs"}
                   fontWeight={600}
                   px={4}
-                  textAlign={
-                    index === tableHeadRow.length - 1 ? "center" : "left"
-                  }
+                  textAlign="center"
+                  // textAlign={
+                  //   index === tableHeadRow.length - 1 ? "center" : "left"
+                  // }
                   key={index}
                   border={"none"}
                   onClick={() => handleSort(item)}
@@ -89,13 +92,15 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
                       : {}
                   }
                 >
-                  {item}
-                  {sortableColumns.includes(item) &&
-                    sortConfig?.key === item && (
-                      <span style={{ marginLeft: "4px" }}>
-                        {sortConfig.direction === "asc" ? "\u25B2" : "\u25BC"}
-                      </span>
-                    )}
+                  <HStack>
+                    {item}
+                    {sortableColumns.includes(item) &&
+                      sortConfig?.key === item && (
+                        <span style={{ marginLeft: "4px" }}>
+                          {sortConfig.direction === "asc" ? <FaArrowUp /> : <FaArrowDown />}
+                        </span>
+                      )}
+                  </HStack>
                 </Table.ColumnHeader>
               ))}
             </Table.Row>
@@ -105,8 +110,9 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
               <Table.Row
                 key={item.id}
                 bg={index % 2 === 0 ? "#fff" : "#fff"}
+
               >
-                <Table.Cell border="none" px={4}>
+                <Table.Cell  border="none" px={4}>
                   <Checkbox
                     isChecked={selectedRows.includes(item.id)}
                     onChange={() => handleRowSelect(item.id)}
@@ -119,6 +125,7 @@ const DataTable = ({ tableHeadRow, data, sortableColumns = [] }) => {
                     fontSize={"sm"}
                     fontWeight={500}
                     border={"none"}
+                    
                   >
                     {item[heading]}
                   </Table.Cell>
