@@ -25,8 +25,8 @@ const UiDataTable = () => {
     "Phone Number",
     "No of Queries",
     "Query Type",
-    "Registration Date",
-    "Action",
+    "Session Channel",
+    "Invested Amount",
   ];
 
   const usersData = Array.from({ length: 13 }, (_, i) => ({
@@ -36,24 +36,28 @@ const UiDataTable = () => {
     "Phone Number": "+91-7250064535",
     "No of Queries": i + 1,
     "Query Type": (
-      <HStack bgColor="#FFFAEB" borderRadius="md" >
-        <Circle bgColor="#B54708" h="8px" w="8px" />
-        <Text color="#B54708" fontSize="xs" fontWeight={500}  >Urgent</Text>
-      </HStack>
+      <>
+        {
+          i === 0 ? (
+            <HStack w={"70px"} bgColor="#FFFAEB" borderRadius="md">
+              <Circle bgColor="#B54708" h="5px" w="5px" />
+              <Text color="#B54708" fontSize="xs" fontWeight={500}>
+                Urgent
+              </Text>
+            </HStack>
+          ) : (
+            <HStack w={"70px"} bgColor="#ECFDF3" borderRadius="md">
+              <Circle bgColor="#027A48" h="5px" w="5px" />
+              <Text color="#027A48" fontSize="xs" fontWeight={500}>
+                Normal
+              </Text>
+            </HStack>
+          )
+        }
+      </>
     ),
-    "Registration Date": "23/03/2023",
-    Action: (
-      <HStack justifyContent="center">
-        <Icon
-          as={MdOutlineRemoveRedEye}
-          cursor="pointer"
-          p={0.5}
-          _hover={{ bg: "#00000015" }}
-          rounded="md"
-          boxSize={5}
-        />
-      </HStack>
-    ),
+    "Session Channel": <Text color="#000" fontSize="xs" fontWeight={500}>App</Text>,
+    "Invested Amount": <Text color="#000" fontSize="xs" fontWeight={500}>₹1,40,000</Text>
   }));
 
   return (
