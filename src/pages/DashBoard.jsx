@@ -1,4 +1,4 @@
-import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, Image, Text, useBreakpointValue, VStack } from "@chakra-ui/react";
 import pilogo from "../assets/icons/pi-logo.png";
 import topSectionImg from "../assets/images/topSection.png";
 import DateRng from "../components/DateRangePicker";
@@ -6,8 +6,14 @@ import MainFrame from "../components/MainFrame";
 import { UserInfo } from "../components/UserInfo";
 import AssetData from "../components/AssetData";
 import UiDataTable from "../components/UiDataTable";
+import MobileAss from "../components/MobileAssetData"
 
 const DashBoard = () => {
+
+  const AssetCards = useBreakpointValue({
+    base: <MobileAss />,
+    lg: <AssetData />,
+  });
   return (
     <MainFrame>
       <Box display="flex" flexDirection="column" p={0} bgColor="#fff">
@@ -42,7 +48,7 @@ const DashBoard = () => {
         </HStack>
 
         <Box position="relative" top="-70px" zIndex={1}>
-          <AssetData />
+          {AssetCards}
         </Box>
 
         <Box h="100%" bgColor="#fff" px={8} pt={0}>
