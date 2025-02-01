@@ -11,7 +11,7 @@ const MainFrame = ({ children }) => {
     <MotionVStack
       {...OPACITY_ON_LOAD}
       w="100%"
-      h="100vh"
+      h="100%"
     
     >
       <Box

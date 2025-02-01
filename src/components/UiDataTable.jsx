@@ -49,7 +49,7 @@ const UiDataTable = () => {
   }));
 
   return (
-    <Box h="90vh">
+    <Box h="100%">
       <HStack w="100%" justifyContent="space-between" mb={4} p={3}>
         <Text fontSize="lg" fontWeight="bold" color="#000">
         User Queries

@@ -7,11 +7,10 @@ import { UserInfo } from "../components/UserInfo";
 import AssetData from "../components/AssetData";
 import UiDataTable from "../components/UiDataTable";
 
-
 const DashBoard = () => {
   return (
     <MainFrame>
-      <Box position="relative" bgColor="#fff" h="100%" >
+      <Box bgColor="#fff">
         {/* Header Section */}
         <HStack
           backgroundImage={`url(${topSectionImg})`}
@@ -20,8 +19,9 @@ const DashBoard = () => {
           w="100%"
           p={4}
           h="170px"
+          position="relative"
         >
-          <VStack gap={4} w="100%" p={0}>
+          <VStack gap={4} w="100%">
             <HStack w="100%" justifyContent="space-between">
               <Image src={pilogo} alt="Pi-Logo" h="24px" />
               <UserInfo />
@@ -40,13 +40,11 @@ const DashBoard = () => {
           </VStack>
         </HStack>
 
-        {/* AssetData - Cards Section */}
-        <Box position="relative" w="100%" top="-60px">
+        <Box position="relative" top="-60px" zIndex={1}>
           <AssetData />
         </Box>
 
-        {/* User Queries Table */}
-        <Box h="100%" bgColor="#fff" px={8}>
+        <Box h="100%" bgColor="#fff" px={8} pt={4}>
           <UiDataTable />
         </Box>
       </Box>
