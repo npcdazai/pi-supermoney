@@ -13,6 +13,7 @@ import DataTable from "./DataTable";
 import { BiExport } from "react-icons/bi";
 import MainFrame from "./MainFrame";
 import excel from "../assets/icons/excel.png";
+import { IoFilterOutline } from "react-icons/io5";
 
 const UiDataTable = () => {
   const tableHeadRow = [
@@ -52,9 +53,9 @@ const UiDataTable = () => {
     <Box h="100%">
       <HStack w="100%" justifyContent="space-between" mb={4} p={3}>
         <Text fontSize="lg" fontWeight="bold" color="#000">
-        User Queries
+          User Queries
         </Text>
-                
+
         <HStack>
           <Button
             rounded="sm"
@@ -65,14 +66,30 @@ const UiDataTable = () => {
             py={3.5}
             bg="#fff"
             color="#344054"
-            _hover={{ bg: "#fff" }}
+            _hover={{ bg: "#0000001A" }}
             border="1px solid #0000001A"
           >
             <BiExport />
-            <Text fontSize="xs">Export data</Text>
+            <Text fontSize="xs" color="#344054" fontWeight={600} >Export data</Text>
             <Image src={excel} h="20px" />
           </Button>
-          
+
+          <Button
+            rounded="sm"
+            gap={2}
+            size="sm"
+            fontWeight="400"
+            px={4}
+            py={3.5}
+            bg="#fff"
+            color="#344054"
+            _hover={{ bg: "#0000001A" }}
+            border="1px solid #0000001A"
+          >
+            <IoFilterOutline />
+            <Text fontSize="xs" color="#344054" fontWeight={600} >Filter</Text>
+          </Button>
+
         </HStack>
       </HStack>
 
