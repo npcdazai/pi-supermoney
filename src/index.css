@@ -14,9 +14,37 @@
   display: none;
 }
 
-
-
-.css-zsa1se{
+.css-zsa1se {
   background-color: #fff;
   color: black;
+}
+
+* {
+  font-family: "Urbanist", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+
+/* Style the scrollbar container */
+::-webkit-scrollbar {
+  width: 10px;  /* Width of the vertical scrollbar */
+  height: 10px; /* Height of the horizontal scrollbar */
+}
+
+/* Style the scrollbar track (the part the scrollbar moves along) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;  /* Light gray color */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #888;  /* Darker gray for the thumb */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb when hovered */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;  /* Even darker gray when hovered */
 }

@@ -11,8 +11,33 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "../components/ui/drawer"
+
+import {
+    AccordionItem,
+    AccordionItemContent,
+    AccordionItemTrigger,
+    AccordionRoot,
+} from "../components/ui/accordion"
 import { IoFilterOutline } from "react-icons/io5"
+
 const FilterDrawers = () => {
+    const items = [
+        { value: "a", title: "Session ID", text: "Some value 1..." },
+        { value: "b", title: "User ID", text: "Some value 2..." },
+        { value: "c", title: "Full Name", text: "Some value 3..." },
+        { value: "d", title: "Phone Number", text: "Some value 3..." },
+        { value: "e", title: "Number of Queries", text: "Some value 3..." },
+        { value: "f", title: "Type of Query", text: "Some value 3..." },
+        { value: "g", title: "Source", text: "Some value 3..." },
+        { value: "h", title: "Invested Amount", text: "Some value 3..." },
+        { value: "i", title: "FD purchase amount", text: "Some value 3..." },
+        { value: "h", title: "Stocks Tracked", text: "Some value 3..." },
+        { value: "j", title: "Mutual Funds Tracked", text: "Some value 3..." },
+        { value: "k", title: "Bank Account Balance", text: "Some value 3..." },
+        { value: "l", title: "Risk Profile Status", text: "Some value 3..." },
+        { value: "n", title: "Vendor", text: "Some value 3..." },
+    ]
+
     return (
         <DrawerRoot className="custom-drawer"  >
             <DrawerBackdrop />
@@ -30,24 +55,28 @@ const FilterDrawers = () => {
                     border="1px solid #0000001A"
                 >
                     <IoFilterOutline />
-                    <Text fontSize="xs" color="#344054" fontWeight={600} >Filter</Text>
+                    <Text fontSize="xs" color="#344054"  >Filter</Text>
                 </Button>
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle>Drawer Title</DrawerTitle>
+                    <DrawerTitle fontWeight={700} fontSize="lg" color="#344054" >Filter</DrawerTitle>
                 </DrawerHeader>
                 <DrawerBody>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
+                    <AccordionRoot collapsible defaultValue={["b"]}>
+                        {items.map((item, index) => (
+                            <AccordionItem border="none" key={index} value={item.value}>
+                                <AccordionItemTrigger  >{item.title}</AccordionItemTrigger>
+                                <AccordionItemContent>{item.text}</AccordionItemContent>
+                            </AccordionItem>
+                        ))}
+                    </AccordionRoot>
                 </DrawerBody>
                 <DrawerFooter>
-                    <DrawerActionTrigger asChild>
+                    {/* <DrawerActionTrigger asChild>
                         <Button color="black" variant="outline">Cancel</Button>
                     </DrawerActionTrigger>
-                    <Button>Save</Button>
+                    <Button>Save</Button> */}
                 </DrawerFooter>
                 <DrawerCloseTrigger />
             </DrawerContent>
