@@ -3,18 +3,13 @@ import {
   Button,
   Circle,
   HStack,
-  Icon,
   Image,
-  Input,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import React from "react";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-import DataTable from "./DataTable";
 import { BiExport } from "react-icons/bi";
-import MainFrame from "./MainFrame";
+import * as XLSX from "xlsx";
 import excel from "../assets/icons/excel.png";
-import { IoFilterOutline } from "react-icons/io5";
+import DataTable from "./DataTable";
 import FilterDrawers from "./FilterDrawers";
 
 const UiDataTable = () => {
@@ -35,30 +30,20 @@ const UiDataTable = () => {
     "Full Name": "Abhijit Kumar",
     "Phone Number": "+91-7250064535",
     "No of Queries": i + 1,
-    "Query Type": (
-      <>
-        {
-          i === 0 ? (
-            <HStack w={"70px"} bgColor="#FFFAEB" borderRadius="md">
-              <Circle bgColor="#B54708" h="5px" w="5px" />
-              <Text color="#B54708" fontSize="xs" fontWeight={500}>
-                Urgent
-              </Text>
-            </HStack>
-          ) : (
-            <HStack w={"70px"} bgColor="#ECFDF3" borderRadius="md">
-              <Circle bgColor="#027A48" h="5px" w="5px" />
-              <Text color="#027A48" fontSize="xs" fontWeight={500}>
-                Normal
-              </Text>
-            </HStack>
-          )
-        }
-      </>
-    ),
-    "Session Channel": <Text color="#000" fontSize="xs" fontWeight={500}>App</Text>,
-    "Invested Amount": <Text color="#000" fontSize="xs" fontWeight={500}>₹1,40,000</Text>
+    "Query Type": i === 0 ? "Urgent" : "Normal",
+    "Session Channel": "App",
+    "Invested Amount": "₹1,40,000",
   }));
+
+  // Function to export data as an Excel file
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(usersData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "User Queries");
+
+    // Generate Excel file and trigger download
+    XLSX.writeFile(workbook, "UserQueries.xlsx");
+  };
 
   return (
     <Box h="100%">
@@ -69,6 +54,7 @@ const UiDataTable = () => {
 
         <HStack>
           <Button
+            onClick={exportToExcel}
             rounded="sm"
             gap={2}
             size="sm"
@@ -81,27 +67,11 @@ const UiDataTable = () => {
             border="1px solid #0000001A"
           >
             <BiExport />
-            <Text fontSize="xs" color="#344054" fontWeight={600} >Export data</Text>
+            <Text fontSize="xs" color="#344054" fontWeight={600}>Export data</Text>
             <Image src={excel} h="20px" />
           </Button>
 
-          {/* <Button
-            rounded="sm"
-            gap={2}
-            size="sm"
-            fontWeight="400"
-            px={4}
-            py={3.5}
-            bg="#fff"
-            color="#344054"
-            _hover={{ bg: "#0000001A" }}
-            border="1px solid #0000001A"
-          >
-            <IoFilterOutline />
-            <Text fontSize="xs" color="#344054" fontWeight={600} >Filter</Text>
-          </Button> */}
           <FilterDrawers />
-
         </HStack>
       </HStack>
 
