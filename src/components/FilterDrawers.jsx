@@ -14,7 +14,7 @@ import {
 import { IoFilterOutline } from "react-icons/io5"
 const FilterDrawers = () => {
     return (
-        <DrawerRoot>
+        <DrawerRoot className="custom-drawer"  >
             <DrawerBackdrop />
             <DrawerTrigger asChild>
                 <Button
@@ -45,7 +45,7 @@ const FilterDrawers = () => {
                 </DrawerBody>
                 <DrawerFooter>
                     <DrawerActionTrigger asChild>
-                        <Button variant="outline">Cancel</Button>
+                        <Button color="black" variant="outline">Cancel</Button>
                     </DrawerActionTrigger>
                     <Button>Save</Button>
                 </DrawerFooter>
