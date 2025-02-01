@@ -14,6 +14,7 @@ import { BiExport } from "react-icons/bi";
 import MainFrame from "./MainFrame";
 import excel from "../assets/icons/excel.png";
 import { IoFilterOutline } from "react-icons/io5";
+import FilterDrawers from "./FilterDrawers";
 
 const UiDataTable = () => {
   const tableHeadRow = [
@@ -74,7 +75,7 @@ const UiDataTable = () => {
             <Image src={excel} h="20px" />
           </Button>
 
-          <Button
+          {/* <Button
             rounded="sm"
             gap={2}
             size="sm"
@@ -88,7 +89,8 @@ const UiDataTable = () => {
           >
             <IoFilterOutline />
             <Text fontSize="xs" color="#344054" fontWeight={600} >Filter</Text>
-          </Button>
+          </Button> */}
+          <FilterDrawers/>
 
         </HStack>
       </HStack>
