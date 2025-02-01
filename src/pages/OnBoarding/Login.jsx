@@ -12,7 +12,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import googleIcon from "../../assets/icons/Google.png";
 import piLogo from "../../assets/icons/pi-logo.png";
@@ -22,6 +22,7 @@ import { Checkbox } from "../../components/ui/checkbox";
 import { Field } from "../../components/ui/field";
 import { toaster } from "../../components/ui/toaster";
 import GlobalStateContext from "../../contexts/GlobalStateContext";
+import { Spinner } from "@chakra-ui/react"
 
 const COLORS = {
   background: "#1b1b1b",
@@ -40,8 +41,9 @@ const SIZES = {
 };
 
 const Login = () => {
+  const { isAuthenticate, setIsAuthenticate } = useContext(GlobalStateContext);
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsAuthenticate } = useContext(GlobalStateContext);
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     Username: Yup.string()
@@ -62,11 +64,12 @@ const Login = () => {
 
   const onSubmit = handleSubmit((data) => {
     setIsLoading(true);
+
     if (data.Username === "Admin" && data.pwd === "admin123!") {
       setTimeout(() => {
-        setIsAuthenticate(true);
-        setIsLoading;
-        false;
+        setIsAuthenticate(true);  // Ensure this comes from GlobalStateContext
+        setIsLoading(false);       // Fix the incorrect state update
+        navigate("/");
       }, 3000);
     } else {
       toaster.create({
@@ -76,6 +79,7 @@ const Login = () => {
       setIsLoading(false);
     }
   });
+
 
   const LoginForm = () => (
     <VStack gap={12} color={COLORS.white}>
@@ -126,8 +130,9 @@ const Login = () => {
           borderRadius="8px"
           bgColor={COLORS.primary}
           fontSize="xs"
+          isDisabled={isLoading} 
         >
-          Sign in
+          {isLoading ? <Spinner size="sm" color="white" /> : "Sign in"}
         </Button>
         <HStack
           justifyContent="space-around"

@@ -1,6 +1,7 @@
 import { Circle, HStack, Icon, Image, Text, VStack } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
 import avtar from "../assets/images/avtar.png";
+import { NavLink } from "react-router-dom";
 
 export const UserInfo = () => (
   <HStack gap={6} justifyContent="space-between" color="white">
@@ -17,6 +18,7 @@ export const UserInfo = () => (
         </Text>
       </VStack>
     </HStack>
-    <Icon as={FiLogOut} boxSize={6} />
+    <NavLink style={{cursor:"pointer"}} to="/login">
+      <Icon as={FiLogOut} boxSize={6} /></NavLink>
   </HStack>
 );
