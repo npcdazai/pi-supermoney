@@ -1,6 +1,5 @@
 import { Button, Text } from "@chakra-ui/react"
 import {
-    DrawerActionTrigger,
     DrawerBackdrop,
     DrawerBody,
     DrawerCloseTrigger,
@@ -9,16 +8,17 @@ import {
     DrawerHeader,
     DrawerRoot,
     DrawerTitle,
-    DrawerTrigger,
+    DrawerTrigger
 } from "../components/ui/drawer"
+import { Slider } from "../components/ui/slider"
 
+import { IoFilterOutline } from "react-icons/io5"
 import {
     AccordionItem,
     AccordionItemContent,
     AccordionItemTrigger,
     AccordionRoot,
 } from "../components/ui/accordion"
-import { IoFilterOutline } from "react-icons/io5"
 
 const FilterDrawers = () => {
     const items = [
@@ -29,7 +29,8 @@ const FilterDrawers = () => {
         { value: "e", title: "Number of Queries", text: "Some value 3..." },
         { value: "f", title: "Type of Query", text: "Some value 3..." },
         { value: "g", title: "Source", text: "Some value 3..." },
-        { value: "h", title: "Invested Amount", text: "Some value 3..." },
+        { value: "h", title: "Invested Amount", text: (<Slider width="96%" thumbSize={{ width: 16, height: 16 }}
+            defaultValue={[30, 60]} /> ) },
         { value: "i", title: "FD purchase amount", text: "Some value 3..." },
         { value: "h", title: "Stocks Tracked", text: "Some value 3..." },
         { value: "j", title: "Mutual Funds Tracked", text: "Some value 3..." },

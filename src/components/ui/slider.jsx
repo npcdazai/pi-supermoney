@@ -63,10 +63,10 @@ export const Slider = React.forwardRef(function Slider(props, ref) {
         </HStack>
       )}
       <ChakraSlider.Control data-has-mark-label={hasMarkLabel || undefined}>
-        <ChakraSlider.Track>
-          <ChakraSlider.Range />
+        <ChakraSlider.Track bgColor="#B09CE8B2" h="3px" >
+          <ChakraSlider.Range bgColor="#B09CE8B2" h="3px" />
         </ChakraSlider.Track>
-        <SliderThumbs value={value} />
+        <SliderThumbs   value={value} />
         <SliderMarks marks={marks} />
       </ChakraSlider.Control>
     </ChakraSlider.Root>
