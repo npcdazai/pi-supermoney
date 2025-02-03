@@ -32,14 +32,14 @@ const UiDataTable = () => {
     "No of Queries": i + 1,
     "Query Type":
       i === 0 ? (
-        <HStack w="70px" bgColor="#FFFAEB" borderRadius="md">
+        <HStack w="70px" justifyContent="center" bgColor="#FFFAEB" borderRadius="md">
           <Circle bgColor="#B54708" h="5px" w="5px" />
           <Text color="#B54708" fontSize="xs" fontWeight={500}>
             Urgent
           </Text>
         </HStack>
       ) : (
-        <HStack w="70px" bgColor="#ECFDF3" borderRadius="md">
+        <HStack justifyContent="center" w="70px" bgColor="#ECFDF3" borderRadius="md">
           <Circle bgColor="#027A48" h="5px" w="5px" />
           <Text color="#027A48" fontSize="xs" fontWeight={500}>
             Normal
