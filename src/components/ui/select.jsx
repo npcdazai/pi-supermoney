@@ -81,6 +81,7 @@ export const SelectValueText = React.forwardRef(
 export const SelectRoot = React.forwardRef(function SelectRoot(props, ref) {
   return (
     <ChakraSelect.Root
+    border="none"
       {...props}
       ref={ref}
       positioning={{ sameWidth: true, ...props.positioning }}
