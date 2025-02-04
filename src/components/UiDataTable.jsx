@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Circle,
-  HStack,
-  Image,
-  Text
-} from "@chakra-ui/react";
+import { Box, Button, Circle, HStack, Image, Text } from "@chakra-ui/react";
 import { BiExport } from "react-icons/bi";
 import * as XLSX from "xlsx";
 import excel from "../assets/icons/excel.png";
@@ -24,31 +17,54 @@ const UiDataTable = () => {
     "Invested Amount",
   ];
 
-  const usersData = Array.from({ length: 100 }, (_, i) => ({
-    "Session ID": i + 6767283728,
-    "User ID": `88738${i + 1}`,
-    "Full Name": "Abhijit Kumar",
-    "Phone Number": "+91-7250064535",
-    "No of Queries": i + 1,
-    "Query Type":
-      i === 0 ? (
-        <HStack w="70px" justifyContent="center" bgColor="#FFFAEB" borderRadius="md">
-          <Circle bgColor="#B54708" h="5px" w="5px" />
-          <Text color="#B54708" fontSize="xs" fontWeight={500}>
-            Urgent
-          </Text>
-        </HStack>
-      ) : (
-        <HStack justifyContent="center" w="70px" bgColor="#ECFDF3" borderRadius="md">
-          <Circle bgColor="#027A48" h="5px" w="5px" />
-          <Text color="#027A48" fontSize="xs" fontWeight={500}>
-            Normal
+  const userNames = [
+    "Abhijit Kumar",
+    "Rahul Sharma",
+    "Priya Verma",
+    "Amit Joshi",
+    "Neha Singh",
+  ];
+
+  const usersData = Array.from({ length: 100 }, (_, i) => {
+    const isUrgent = Math.random() < 0.3; // 30% chance to be "Urgent"
+    const randomAmount = (Math.floor(Math.random() * 10) + 1) * 50000; // Random amounts between ₹50,000 - ₹5,00,000
+    const sessionChannels = ["App", "Web", "Call"];
+
+    return {
+      "Session ID": i + 6767283728,
+      "User ID": `88738${i + 1}`,
+      "Full Name": userNames[i % userNames.length],
+      "Phone Number": `+91-72${Math.floor(10000000 + Math.random() * 9000000)}`,
+      "No of Queries": i + 1,
+      "Query Type": (
+        <HStack
+          w="70px"
+          justifyContent="center"
+          bgColor={isUrgent ? "#FFFAEB" : "#ECFDF3"}
+          borderRadius="md"
+        >
+          <Circle bgColor={isUrgent ? "#B54708" : "#027A48"} h="5px" w="5px" />
+          <Text
+            color={isUrgent ? "#B54708" : "#027A48"}
+            fontSize="xs"
+            fontWeight={500}
+          >
+            {isUrgent ? "Urgent" : "Normal"}
           </Text>
         </HStack>
       ),
-    "Session Channel": <Text color="#000" fontSize="xs" fontWeight={500}>App</Text>,
-    "Invested Amount": <Text color="#000" fontSize="xs" fontWeight={500}>₹1,40,000</Text>,
-  }));
+      "Session Channel": (
+        <Text color="#000" fontSize="xs" fontWeight={500}>
+          {sessionChannels[i % sessionChannels.length]}
+        </Text>
+      ),
+      "Invested Amount": (
+        <Text color="#000" fontSize="xs" fontWeight={500}>
+          ₹{randomAmount.toLocaleString()}
+        </Text>
+      ),
+    };
+  });
 
   // Function to export data as an Excel file
   const exportToExcel = () => {
@@ -82,24 +98,27 @@ const UiDataTable = () => {
             border="1px solid #0000001A"
           >
             <BiExport />
-            <Text fontSize="xs" color="#344054" fontWeight={600}>Export data</Text>
+            <Text fontSize="xs" color="#344054" fontWeight={600}>
+              Export data
+            </Text>
             <Image src={excel} h="20px" />
           </Button>
-
 
           <FilterDrawers />
         </HStack>
       </HStack>
 
       <DataTable
-        sortableColumns={["Session ID",
+        sortableColumns={[
+          "Session ID",
           "User ID",
           "Full Name",
           "Phone Number",
           "No of Queries",
           "Query Type",
           "Session Channel",
-          "Invested Amount",]}
+          "Invested Amount",
+        ]}
         tableHeadRow={tableHeadRow}
         data={usersData}
       />
